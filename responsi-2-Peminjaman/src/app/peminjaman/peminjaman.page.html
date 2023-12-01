@@ -1,0 +1,93 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Daftar Peminjaman</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" style="background-color: #f2f2f2;">
+  <!-- Tambah Peminjaman Button -->
+  <ion-card>
+    <ion-button (click)="open_modal_tambah(true)" expand="block">Tambah Peminjaman</ion-button>
+  </ion-card>
+
+  <!-- Peminjaman Cards -->
+  <ion-card *ngFor="let item of dataPeminjaman">
+    <ion-item>
+      <ion-label>{{item.nama_barang}}
+        <p>{{item.status_peminjaman}}</p>
+      </ion-label>
+      <ion-button expand="full" color="warning" (click)="open_modal_edit(true, item.id)">Edit</ion-button>
+      <ion-button expand="full" color="danger" (click)="hapusPeminjaman(item.id)">Hapus</ion-button>
+    </ion-item>
+  </ion-card>
+
+  <!-- Modal Tambah Peminjaman -->
+<ion-modal [isOpen]="modal_tambah">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="cancel()" fill="clear" color="dark">
+            <ion-icon slot="icon-only" name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-title size="small">Tambah Peminjaman</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding" style="padding: 0 10px;">
+      <ion-item lines="none" style="margin-bottom: 5px;">
+        <ion-input label="Nama barang Peminjaman" labelPlacement="floating" required [(ngModel)]="nama_barang"
+          placeholder="Masukkan Nama barang Peminjaman" type="text"></ion-input>
+      </ion-item>
+      <ion-item lines="none" style="margin-bottom: 5px;">
+        <ion-input label='Status peminjaman Barang' labelPlacement="floating" required [(ngModel)]="status_peminjaman"
+          placeholder="Masukkan Status Peminjaman Barang" type="text"></ion-input>
+      </ion-item>
+      <ion-row>
+        <ion-col>
+          <ion-button type="button" (click)="tambahPeminjaman()" color="primary" shape="full" expand="block">
+            Tambah Peminjaman
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<!-- Modal Edit Peminjaman -->
+<ion-modal [isOpen]="modal_edit">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="cancel()" fill="clear" color="dark">
+            <ion-icon slot="icon-only" name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-title size="small">Edit Peminjaman</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding" style="padding: 0 10px;">
+      <ion-item lines="none" style="margin-bottom: 5px;">
+        <ion-input label="Nama Barang Yang Dipinjam" labelPlacement="floating" required [(ngModel)]="nama_barang"
+          placeholder="Nama Barang Yang Dipinjam" type="text"></ion-input>
+      </ion-item>
+      <ion-item lines="none" style="margin-bottom: 5px;">
+        <ion-input label='Status_peminjaman Peminjaman' labelPlacement="floating" required [(ngModel)]="status_peminjaman"
+          placeholder="Status_peminjaman Peminjaman" type="text"></ion-input>
+      </ion-item>
+      <ion-input required [(ngModel)]="id" type="hidden"></ion-input>
+      <ion-row>
+        <ion-col>
+          <ion-button type="button" (click)="editPeminjaman()" color="primary" shape="full" expand="block">
+            Edit Peminjaman
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
